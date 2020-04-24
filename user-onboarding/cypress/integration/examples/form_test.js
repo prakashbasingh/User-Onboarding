@@ -57,11 +57,7 @@ describe ('Member Form', () => {
         .should('have.value', 'p')  
     })
     it('validating the username error', () => {
-        cy.get('.forErrorUsername')
-        .should('have.text', 'Username must have at least 3 characters!')
+        cy.contains('Username must have at least 3 characters!')
     })
-
-
-
 
 })
