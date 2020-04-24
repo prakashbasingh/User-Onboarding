@@ -19,7 +19,7 @@ function User({ details }) {
  
   return (
     <UserContainer>
-      <h2>Username: {details.username}</h2>
+      <h2 className = "forErrorUsername">Username: {details.username}</h2>
       <p>Email: {details.email}</p>
       <p>Password: {details.address}</p>
       <p>Terms of Service: {details.termsOfService} </p>

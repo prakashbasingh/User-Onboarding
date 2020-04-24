@@ -37,6 +37,30 @@ describe ('Member Form', () => {
         .should('have.value', 'aabbccddeeff')
     })
 
+    //testing to check if user can check the term of service box
+    it('checking the term of service checkbox', () => {
+        cy.get('input[name="terms"]')
+        .check()
+        .should('checked')
+    })
+
+    //testing to see if user can submit the form data
+    it ('can submit the form value', () => {
+        cy.get('button')
+        .click() 
+    })
+
+    // test to check form validation if an input is left empty
+    it('is input area empty??', () => {
+        cy.get('input[name = "username"]')
+        .type('p')
+        .should('have.value', 'p')  
+    })
+    it('validating the username error', () => {
+        cy.get('.forErrorUsername')
+        .should('have.text', 'Username must have at least 3 characters!')
+    })
+
 
 
 
