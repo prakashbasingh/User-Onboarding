@@ -42,7 +42,7 @@ function Form (props){
                     value = {values.password}
                     onChange = {onInputChange}
                     name = 'password'
-                    type = 'text'
+                    type = 'password'
                 />
             </label>
 
@@ -54,9 +54,7 @@ function Form (props){
                     type='checkbox' /> Terms of Service </label>
             
             {/* the following is for button which needs a handler */}
-            <button onClick = {onSubmit} disabled={disabled}>
-                 Submit 
-            </button>    
+            <button onClick = {onSubmit} >Submit</button>    
         </form>
     )
 }
