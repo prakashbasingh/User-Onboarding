@@ -19,8 +19,25 @@ describe ('Member Form', () => {
     //testing valid name input
     it('can type a username', ()=> {
             cy.get('input[name = "username"]')
-            .type('Prakash')      
+            .type('Prakash')
+            .should('have.value', 'Prakash')      
     })
 
-    
+    //testing valid email input
+    it('can type the email', () =>{
+        cy.get('input[name = "email"]')
+        .type('pk@pk.com')
+        .should('have.value', 'pk@pk.com')
+    })
+
+    //testing valid password input
+    it('can type a password', () =>{
+        cy.get('input[name = "password"]')
+        .type('aabbccddeeff')
+        .should('have.value', 'aabbccddeeff')
+    })
+
+
+
+
 })
