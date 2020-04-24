@@ -11,8 +11,16 @@ it('works!', () => {
 })
 
 describe ('Member Form', () => {
+    //navigating to the project form
     it('can navigate to the site', ()=> {
         cy.visit('http://localhost:3000')
     })
+
+    //testing valid name input
+    it('can type a username', ()=> {
+            cy.get('input[name = "username"]')
+            .type('Prakash')      
+    })
+
     
 })
