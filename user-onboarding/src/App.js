@@ -2,10 +2,23 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios'
 import * as yup from 'yup'
+import styled from "styled-components";
 
 import Form from './Form'
 import User from './UserCard'
-import { findRenderedComponentWithType } from 'react-dom/test-utils';
+
+////////////styling the container
+const StyledContainer = styled.div`
+  border: 2px solid green;
+  margin: 5rem;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: center; */
+  box-shadow: 0 0 10px 10px red;	
+  color: white;
+
+`
 
 const url = 'https://reqres.in/api/users'
 
@@ -16,7 +29,7 @@ const initialFormValues = {
   email: '',
   password: '',
   //CHECKBOXES
-  termsOfService:false,
+  termsOfService:'',
 }
 
 // shape of the validation errors
@@ -24,7 +37,7 @@ const initialFormErrors = {
   username: '',
   email: '',
   password: '',
-  termsOfService:'',
+  termsOfService: '',
 }
 // setting validation with  error message 
 const formErrorCheck = yup.object().shape({
@@ -42,7 +55,7 @@ const formErrorCheck = yup.object().shape({
     .required('Password  is required!'),
   termsOfService: yup
     .boolean()
-    .oneOf([true], "You must accept Terms and Conditions")
+    .oneOf([true], "You must accept Terms and Conditions"),
 })
 
 
@@ -50,7 +63,7 @@ const formErrorCheck = yup.object().shape({
 function App() {
 
   const [users, setUsers] = useState([])
-  console.log('afofuh', users)
+  // console.log('afofuh', users)
   const [formValues, setFormValues] = useState(initialFormValues)
 
   const [formDisabled, setFormDisabled] = useState(true) //state to track submit button disabled
@@ -76,14 +89,16 @@ function App() {
     }, [])
 
     //creating a function to post new user to the API and setting updated list of friends in state
-  const postUser = user =>{
+  const postUser = (user) =>{
     axios.post(url, user)
     .then(success => {
-      setUsers([...users, success.data])
+      setUsers([...users, success.data]) 
+      debugger
       // console.log(success, 'are we getting data?????????')
     })
     .catch(error => {
-      // console.log(error, 'Is it Error??????')
+     
+      console.log(error, 'Is it Error??????')
     })
   }
 
@@ -103,10 +118,10 @@ function App() {
       email: formValues.email,
       password: formValues.password,
       termsOfService: formValues.termsOfService
-    }
+          }
       //this post new user to API
-     setUsers([...users, newUser]) 
-    // postUser(newUser)
+    //  setUsers([...users, newUser]) 
+    postUser(newUser)
     setFormValues(initialFormValues)
   }
 
@@ -121,26 +136,26 @@ function App() {
         setFormErrors({
           ...formErrors,
           [name]: '',
-        })
+        });
       })
       .catch(error => {
         setFormErrors({
           ...formErrors,
           [name]: error.errors[0]
-        })
-      })
+        });
+      });
     setFormValues({
       ...formValues,
       [name]: value,
-    })  
-  }
+    });
+  };
 
   const onCheckboxChange = evt => {
-    const { name } = evt.target
+    const { name } = evt.target.name
     const isChecked = evt.target.checked
 
     setFormValues({
-      ...formValues,
+      // ...formValues,
       termsOfService: {
         ...formValues.termsOfService,
         [name]: isChecked,
@@ -149,7 +164,7 @@ function App() {
   } 
 
   return (
-    <div className="container">
+    <StyledContainer>
       <header className="App-header"> <h1>User Sign Up</h1>  </header>
       <Form values={formValues}
             onInputChange={onInputChange}
@@ -165,7 +180,7 @@ function App() {
           )
         })
       }
-    </div>
+    </StyledContainer>
   );
 }
 
